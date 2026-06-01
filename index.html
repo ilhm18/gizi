@@ -35,6 +35,14 @@
         font-weight: 900;
         letter-spacing: -3px;
       }
+      .hero {
+        text-align: center;
+      }
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 760px;
+      }
       .hero h1 span {
         display: block;
         background: linear-gradient(90deg, #ff4fd8, #7b61ff, #42a5ff);
@@ -122,13 +130,12 @@
         outline-color: rgba(139, 92, 246, 0.6);
         background: rgba(255, 255, 255, 0.03);
       }
-      /* make .wide act as vertical form row for nicer spacing */
       .inputGrid .wide {
         display: flex;
         flex-direction: column;
         gap: 8px;
+        align-items: center;
       }
-      /* secondary button style */
       button.secondary {
         background: transparent;
         border: 1px solid rgba(255, 255, 255, 0.08);
@@ -317,7 +324,6 @@
         padding: 18px 24px;
         color: #e5e7ff;
       }
-      /* contact/social styles for tips area */
       .contact {
         display: flex;
         align-items: center;
@@ -342,6 +348,7 @@
       .contact .meta {
         display: flex;
         flex-direction: column;
+        text-align: center;
       }
       .contact .title {
         font-weight: 800;
@@ -356,9 +363,7 @@
       .contact a:hover {
         text-decoration: underline;
       }
-      /* preview feature removed */
 
-      /* enhance main photo with neon ring */
       .foodPhoto {
         width: 520px;
         height: 520px;
@@ -446,7 +451,7 @@
             </div>
 
             <button class="wide" onclick="analyzeFood()">
-              🔍 Analisis Nutrisi
+              🔍 Analisis sekarang
             </button>
             <button class="wide secondary" onclick="resetData()">Reset</button>
           </div>
@@ -544,7 +549,6 @@
       <section class="card tips">
         <div class="contact">
           <div class="icon">
-            <!-- Instagram SVG logo -->
             <svg
               viewBox="0 0 24 24"
               fill="none"
