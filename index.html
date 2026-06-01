@@ -62,9 +62,13 @@
         background: #111;
       }
       .card {
-        background: linear-gradient(180deg, rgba(12,8,30,0.75), rgba(20,15,50,0.6));
-        border: 1px solid rgba(124,58,237,0.18);
-        box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+        background: linear-gradient(
+          180deg,
+          rgba(12, 8, 30, 0.75),
+          rgba(20, 15, 50, 0.6)
+        );
+        border: 1px solid rgba(124, 58, 237, 0.18);
+        box-shadow: 0 20px 60px rgba(2, 6, 23, 0.6);
         backdrop-filter: blur(14px);
         border-radius: 18px;
       }
@@ -105,7 +109,10 @@
         resize: vertical;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
         font-size: 15px;
-        transition: box-shadow 160ms ease, transform 120ms ease, outline-color 160ms ease;
+        transition:
+          box-shadow 160ms ease,
+          transform 120ms ease,
+          outline-color 160ms ease;
       }
       textarea::placeholder {
         color: rgba(255, 255, 255, 0.5);
@@ -171,7 +178,11 @@
       .bigCal {
         padding: 28px;
         border-radius: 14px;
-        background: linear-gradient(90deg, rgba(124,58,237,0.06), rgba(59,130,246,0.03));
+        background: linear-gradient(
+          90deg,
+          rgba(124, 58, 237, 0.06),
+          rgba(59, 130, 246, 0.03)
+        );
       }
       .bigCal .num {
         font-size: 72px;
@@ -184,7 +195,11 @@
         padding: 22px;
         text-align: center;
         border-radius: 14px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
       }
       .macro .icon {
         font-size: 42px;
@@ -213,11 +228,15 @@
       }
       .sectionTitle {
         padding: 14px 24px;
-        background: linear-gradient(90deg, rgba(124,58,237,0.12), rgba(48,16,95,0.08));
+        background: linear-gradient(
+          90deg,
+          rgba(124, 58, 237, 0.12),
+          rgba(48, 16, 95, 0.08)
+        );
         font-weight: 900;
         letter-spacing: 0.3px;
         color: #e9d8ff;
-        border-bottom: 1px solid rgba(255,255,255,0.02);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
       }
       .foodList {
         padding: 12px 22px;
@@ -240,7 +259,11 @@
       table {
         width: 100%;
         border-collapse: collapse;
-        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
         border-radius: 12px;
         overflow: hidden;
       }
@@ -294,6 +317,45 @@
         padding: 18px 24px;
         color: #e5e7ff;
       }
+      /* contact/social styles for tips area */
+      .contact {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .contact .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: linear-gradient(90deg, #ff7a45, #ff4d94);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        box-shadow: 0 8px 24px rgba(255, 77, 148, 0.12);
+      }
+      .contact .icon svg {
+        width: 26px;
+        height: 26px;
+        display: block;
+      }
+      .contact .meta {
+        display: flex;
+        flex-direction: column;
+      }
+      .contact .title {
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+      .contact a {
+        color: #0ea5e9;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .contact a:hover {
+        text-decoration: underline;
+      }
       /* preview feature removed */
 
       /* enhance main photo with neon ring */
@@ -305,15 +367,24 @@
         border: 10px solid transparent;
         background-origin: border-box;
         box-shadow:
-          0 8px 40px rgba(66,165,255,0.08),
-          0 0 40px rgba(139,92,246,0.18),
-          0 0 90px rgba(66,165,255,0.06);
-        background-image: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent 20%);
+          0 8px 40px rgba(66, 165, 255, 0.08),
+          0 0 40px rgba(139, 92, 246, 0.18),
+          0 0 90px rgba(66, 165, 255, 0.06);
+        background-image: radial-gradient(
+          circle at 30% 20%,
+          rgba(255, 255, 255, 0.03),
+          transparent 20%
+        );
         position: relative;
       }
-      .foodPhoto::before{
-        content:'';
-        position:absolute; inset:-12px; border-radius:50%; z-index:-1; background: linear-gradient(90deg,#7c3aed,#06b6d4); filter: blur(18px);
+      .foodPhoto::before {
+        content: "";
+        position: absolute;
+        inset: -12px;
+        border-radius: 50%;
+        z-index: -1;
+        background: linear-gradient(90deg, #7c3aed, #06b6d4);
+        filter: blur(18px);
       }
       .small {
         color: #9ca3af;
@@ -379,11 +450,8 @@
             </button>
             <button class="wide secondary" onclick="resetData()">Reset</button>
           </div>
-
         </div>
       </section>
-
-      
 
       <section class="photoWrap">
         <img
@@ -474,8 +542,49 @@
       </section>
 
       <section class="card tips">
-        <b>💡 TIPS:</b> Semakin detail user menulis isi makanan, semakin bagus
-        estimasinya. Contoh: “nasi 1 centong, ayam 100 gram, telur 1 butir”.
+        <div class="contact">
+          <div class="icon">
+            <!-- Instagram SVG logo -->
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="igGrad" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#f58529" />
+                  <stop offset="50%" stop-color="#dd2a7b" />
+                  <stop offset="100%" stop-color="#8134af" />
+                </linearGradient>
+              </defs>
+              <rect
+                x="2"
+                y="2"
+                width="20"
+                height="20"
+                rx="6"
+                fill="url(#igGrad)"
+              />
+              <path
+                d="M12 7.2a4.8 4.8 0 100 9.6 4.8 4.8 0 000-9.6z"
+                fill="#fff"
+                opacity="0.95"
+              />
+              <circle cx="12" cy="12" r="3" fill="url(#igGrad)" />
+              <circle cx="17.5" cy="6.5" r="1" fill="#fff" />
+            </svg>
+          </div>
+          <div class="meta">
+            <div class="title">
+              <a
+                href="https://instagram.com/ilhamm.18"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Follow me on Instagram</a
+              >
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -702,8 +811,6 @@
           ? text
           : "Rekomendasi akan muncul setelah makanan dianalisis.";
       }
-
-      
 
       render();
     </script>
