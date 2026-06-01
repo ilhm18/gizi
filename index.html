@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analisis Nutrisi Makanan</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Inter, Arial, sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        background: radial-gradient(
+          circle at top right,
+          #5310a8 0,
+          #111638 35%,
+          #060914 75%
+        );
+        color: white;
+        padding: 28px;
+      }
+      .app {
+        max-width: 1180px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 24px;
+      }
+      .hero h1 {
+        font-size: 72px;
+        line-height: 0.95;
+        font-weight: 900;
+        letter-spacing: -3px;
+      }
+      .hero h1 span {
+        display: block;
+        background: linear-gradient(90deg, #ff4fd8, #7b61ff, #42a5ff);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .hero p {
+        color: #cfd4e8;
+        font-size: 22px;
+        margin-top: 18px;
+      }
+      .photoWrap {
+        display: flex;
+        justify-content: center;
+      }
+      .foodPhoto {
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 7px solid rgba(255, 255, 255, 0.8);
+        box-shadow:
+          0 0 35px #376bff,
+          0 0 70px #d946ef;
+        background: #111;
+      }
+      .card {
+        background: linear-gradient(
+          135deg,
+          rgba(119, 44, 255, 0.25),
+          rgba(20, 30, 70, 0.45)
+        );
+        border: 1px solid rgba(160, 130, 255, 0.35);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(18px);
+        border-radius: 24px;
+      }
+      .inputCard {
+        padding: 22px;
+        margin-top: 28px;
+      }
+      .inputGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      label {
+        font-size: 13px;
+        color: #cbd5ff;
+        margin-bottom: 7px;
+        display: block;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 14px 16px;
+        border: none;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        outline: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      textarea {
+        width: 100%;
+        min-height: 96px;
+        padding: 14px 16px;
+        border: none;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+        color: #f8fafc;
+        outline: 1px solid rgba(255, 255, 255, 0.06);
+        resize: vertical;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        font-size: 15px;
+        transition: box-shadow 160ms ease, transform 120ms ease, outline-color 160ms ease;
+      }
+      textarea::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      textarea:focus {
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.12);
+        outline-color: rgba(139, 92, 246, 0.6);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      /* make .wide act as vertical form row for nicer spacing */
+      .inputGrid .wide {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      /* secondary button style */
+      button.secondary {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #e9e7ff;
+        box-shadow: none;
+      }
+      button.secondary:hover {
+        background: rgba(255, 255, 255, 0.03);
+        transform: translateY(-2px);
+      }
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 40px rgba(59, 130, 246, 0.12);
+      }
+      input:focus {
+        outline-color: rgba(99, 102, 241, 0.35);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.08);
+      }
+      input::file-selector-button {
+        background: #8b5cf6;
+        color: white;
+        border: 0;
+        border-radius: 10px;
+        padding: 9px 12px;
+        margin-right: 10px;
+      }
+      button {
+        border: 0;
+        border-radius: 14px;
+        padding: 14px 18px;
+        color: white;
+        font-weight: 800;
+        background: linear-gradient(90deg, #a855f7, #3b82f6);
+        cursor: pointer;
+        box-shadow: 0 0 24px rgba(139, 92, 246, 0.35);
+      }
+      .wide {
+        grid-column: 1/-1;
+      }
+      .summary {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: 1.2fr repeat(4, 1fr);
+        gap: 16px;
+        margin-top: 8px;
+      }
+      .bigCal {
+        padding: 28px;
+      }
+      .bigCal .num {
+        font-size: 72px;
+        font-weight: 900;
+        background: linear-gradient(90deg, #ff55d5, #8b5cf6, #60a5fa);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .macro {
+        padding: 22px;
+        text-align: center;
+      }
+      .macro .icon {
+        font-size: 42px;
+      }
+      .macro .value {
+        font-size: 40px;
+        font-weight: 900;
+        margin-top: 12px;
+      }
+      .bar {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 99px;
+        margin-top: 16px;
+        overflow: hidden;
+      }
+      .fill {
+        height: 100%;
+        width: 70%;
+        background: linear-gradient(90deg, #ec4899, #8b5cf6, #38bdf8);
+      }
+      .section {
+        grid-column: 1/-1;
+        padding: 0;
+        overflow: hidden;
+      }
+      .sectionTitle {
+        padding: 14px 24px;
+        background: linear-gradient(90deg, #7c2dff, #30105f);
+        font-weight: 900;
+        letter-spacing: 0.3px;
+      }
+      .foodList {
+        padding: 12px 22px;
+      }
+      .foodRow {
+        display: grid;
+        grid-template-columns: 1.3fr 0.5fr 0.5fr;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        align-items: center;
+      }
+      .pill {
+        background: linear-gradient(90deg, #7e22ce, #4f46e5);
+        border-radius: 99px;
+        padding: 8px 14px;
+        text-align: center;
+        font-weight: 800;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        text-align: center;
+      }
+      th {
+        color: #f1eaff;
+      }
+      td:first-child,
+      th:first-child {
+        text-align: left;
+      }
+      .total td {
+        font-weight: 900;
+        color: #a78bfa;
+        font-size: 20px;
+      }
+      .bottom {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .info {
+        padding: 22px;
+      }
+      .info h3 {
+        margin-bottom: 14px;
+        font-size: 22px;
+      }
+      .info li {
+        margin: 10px 0;
+        color: #e5e7ff;
+      }
+      .recommend .mode {
+        font-size: 48px;
+        font-weight: 900;
+        background: linear-gradient(90deg, #a855f7, #60a5fa);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .tips {
+        grid-column: 1/-1;
+        padding: 18px 24px;
+        color: #e5e7ff;
+      }
+      .small {
+        color: #9ca3af;
+        font-size: 13px;
+        margin-top: 12px;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .hide {
+        display: none;
+      }
+      @media (max-width: 900px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+        .hero h1 {
+          font-size: 48px;
+        }
+        .foodPhoto {
+          width: 330px;
+          height: 330px;
+        }
+        .summary {
+          grid-template-columns: 1fr 1fr;
+        }
+        .bigCal {
+          grid-column: 1/-1;
+        }
+        .bottom {
+          grid-template-columns: 1fr;
+        }
+        .inputGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <section class="hero">
+        <h1>ANALISIS <span>NUTRISI</span></h1>
+        <p>
+          Upload foto makanan, tulis detail makanan yang terlihat, lalu sistem
+          akan membuat estimasi kalori, protein, karbohidrat, dan lemak secara
+          otomatis.
+        </p>
+
+        <div class="card inputCard">
+          <div class="inputGrid">
+            <div class="wide">
+              <label>Upload foto makanan</label>
+              <input type="file" id="photoInput" accept="image/*" />
+            </div>
+
+            <div class="wide">
+              <label>Detail makanan yang ada di foto</label>
+              <textarea
+                id="foodDetail"
+                placeholder="Contoh: nasi putih 1 centong, dada ayam sekitar 100 gram, telur 1 butir, tumis tauge sedikit"
+              ></textarea>
+            </div>
+
+            <button class="wide" onclick="analyzeFood()">
+              🔍 Analisis Nutrisi
+            </button>
+            <button class="wide secondary" onclick="resetData()">Reset</button>
+          </div>
+          <p class="small">
+            User cukup upload foto dan menulis detail makanan. Nilai nutrisi
+            akan dihitung otomatis berdasarkan database estimasi.
+          </p>
+        </div>
+      </section>
+
+      <section class="photoWrap">
+        <img
+          id="preview"
+          class="foodPhoto"
+          src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1200&auto=format&fit=crop"
+          alt="Foto makanan"
+        />
+      </section>
+
+      <section class="summary">
+        <div class="card bigCal">
+          <h2>🔥 TOTAL KALORI</h2>
+          <div><span id="totalCal" class="num">0</span> kcal</div>
+        </div>
+        <div class="card macro">
+          <div class="icon">💪</div>
+          <p>PROTEIN</p>
+          <div class="value"><span id="totalProtein">0</span>g</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <div class="card macro">
+          <div class="icon">🍚</div>
+          <p>KARBOHIDRAT</p>
+          <div class="value"><span id="totalCarb">0</span>g</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <div class="card macro">
+          <div class="icon">🥑</div>
+          <p>LEMAK</p>
+          <div class="value"><span id="totalFat">0</span>g</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <div class="card macro">
+          <div class="icon">⚡</div>
+          <p>KALORI</p>
+          <div class="value"><span id="totalCal2">0</span></div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+      </section>
+
+      <section class="card section">
+        <div class="sectionTitle">🍽️ KOMPOSISI MAKANAN TERDETEKSI</div>
+        <div id="foodList" class="foodList"></div>
+      </section>
+
+      <section class="card section">
+        <div class="sectionTitle">📊 RINCIAN NUTRISI</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Makanan</th>
+              <th>Estimasi Porsi</th>
+              <th>Kalori</th>
+              <th>Protein</th>
+              <th>Karbo</th>
+              <th>Lemak</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+          <tfoot>
+            <tr class="total">
+              <td>TOTAL</td>
+              <td id="tGram">0 g</td>
+              <td id="tCal">0</td>
+              <td id="tProtein">0</td>
+              <td id="tCarb">0</td>
+              <td id="tFat">0</td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+
+      <section class="bottom">
+        <div class="card info">
+          <h3>⚡ ANALISIS CEPAT</h3>
+          <ul id="analysis">
+            <li>Upload foto dan isi detail makanan terlebih dahulu.</li>
+          </ul>
+        </div>
+        <div class="card info recommend">
+          <h3>🎯 REKOMENDASI FITNESS</h3>
+          <div id="mode" class="mode">-</div>
+          <p id="recommendText">
+            Rekomendasi akan muncul setelah makanan dianalisis.
+          </p>
+        </div>
+      </section>
+
+      <section class="card tips">
+        <b>💡 TIPS:</b> Semakin detail user menulis isi makanan, semakin bagus
+        estimasinya. Contoh: “nasi 1 centong, ayam 100 gram, telur 1 butir”.
+        </div>
+      </section>
+    </main>
+
+    <script>
+      let foods = [];
+      const $ = (id) => document.getElementById(id);
+
+      const database = [
+        {
+          keys: ["nasi", "nasi putih"],
+          name: "Nasi Putih",
+          gram: 120,
+          cal: 156,
+          protein: 3.1,
+          carb: 34.6,
+          fat: 0.3,
+        },
+        {
+          keys: ["ayam", "dada ayam", "chicken"],
+          name: "Dada Ayam",
+          gram: 100,
+          cal: 165,
+          protein: 31,
+          carb: 0,
+          fat: 3.6,
+        },
+        {
+          keys: ["telur", "egg"],
+          name: "Telur",
+          gram: 60,
+          cal: 93,
+          protein: 7.8,
+          carb: 0.6,
+          fat: 6.6,
+        },
+        {
+          keys: ["tauge", "taoge", "tumis tauge"],
+          name: "Tumis Tauge + Sayuran",
+          gram: 180,
+          cal: 108,
+          protein: 4.5,
+          carb: 12.8,
+          fat: 4.4,
+        },
+        {
+          keys: ["tempe"],
+          name: "Tempe",
+          gram: 100,
+          cal: 193,
+          protein: 20.3,
+          carb: 7.6,
+          fat: 10.8,
+        },
+        {
+          keys: ["tahu"],
+          name: "Tahu",
+          gram: 100,
+          cal: 76,
+          protein: 8,
+          carb: 1.9,
+          fat: 4.8,
+        },
+        {
+          keys: ["mie", "mi goreng", "mie goreng"],
+          name: "Mie Goreng",
+          gram: 200,
+          cal: 380,
+          protein: 9,
+          carb: 52,
+          fat: 15,
+        },
+        {
+          keys: ["ikan"],
+          name: "Ikan",
+          gram: 100,
+          cal: 140,
+          protein: 22,
+          carb: 0,
+          fat: 5,
+        },
+        {
+          keys: ["sayur", "sayuran"],
+          name: "Sayuran",
+          gram: 150,
+          cal: 60,
+          protein: 3,
+          carb: 10,
+          fat: 1.5,
+        },
+        {
+          keys: ["sambal"],
+          name: "Sambal",
+          gram: 25,
+          cal: 35,
+          protein: 0.5,
+          carb: 3,
+          fat: 2.5,
+        },
+      ];
+
+      $("photoInput").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) $("preview").src = URL.createObjectURL(file);
+      });
+
+      function analyzeFood() {
+        const detail = $("foodDetail").value.toLowerCase();
+        if (!detail.trim())
+          return alert("Tulis dulu detail makanan yang ada di foto.");
+
+        foods = [];
+        database.forEach((item) => {
+          const found = item.keys.some((k) => detail.includes(k));
+          if (found) {
+            const gramMatch = detail.match(
+              new RegExp(item.keys[0] + "[^0-9]{0,20}(\d+)\s*(gram|g)", "i"),
+            );
+            let multiplier = 1;
+            if (detail.includes("2 butir") && item.name.includes("Telur"))
+              multiplier = 2;
+            if (detail.includes("2 centong") && item.name.includes("Nasi"))
+              multiplier = 2;
+            const gram = gramMatch
+              ? Number(gramMatch[1])
+              : item.gram * multiplier;
+            const factor = gram / item.gram;
+            foods.push({
+              name: item.name,
+              gram,
+              cal: item.cal * factor,
+              protein: item.protein * factor,
+              carb: item.carb * factor,
+              fat: item.fat * factor,
+            });
+          }
+        });
+
+        if (foods.length === 0) {
+          foods = [
+            {
+              name: "Makanan tidak dikenali",
+              gram: 250,
+              cal: 350,
+              protein: 15,
+              carb: 45,
+              fat: 12,
+            },
+          ];
+        }
+        render();
+      }
+
+      function resetData() {
+        foods = [];
+        $("foodDetail").value = "";
+        $("photoInput").value = "";
+        render();
+      }
+
+      function render() {
+        const total = foods.reduce(
+          (a, f) => ({
+            gram: a.gram + f.gram,
+            cal: a.cal + f.cal,
+            protein: a.protein + f.protein,
+            carb: a.carb + f.carb,
+            fat: a.fat + f.fat,
+          }),
+          { gram: 0, cal: 0, protein: 0, carb: 0, fat: 0 },
+        );
+        $("totalCal").textContent = Math.round(total.cal);
+        $("totalCal2").textContent = Math.round(total.cal);
+        $("totalProtein").textContent = total.protein.toFixed(0);
+        $("totalCarb").textContent = total.carb.toFixed(0);
+        $("totalFat").textContent = total.fat.toFixed(0);
+        $("tGram").textContent = total.gram.toFixed(0) + " g";
+        $("tCal").textContent = Math.round(total.cal);
+        $("tProtein").textContent = total.protein.toFixed(1);
+        $("tCarb").textContent = total.carb.toFixed(1);
+        $("tFat").textContent = total.fat.toFixed(1);
+
+        $("foodList").innerHTML = foods.length
+          ? foods
+              .map(
+                (f) =>
+                  `<div class="foodRow"><b>${f.name}</b><span>~${f.gram.toFixed(0)} g</span><span class="pill">${Math.round(f.cal)} kcal</span></div>`,
+              )
+              .join("")
+          : '<p style="color:#cbd5e1;padding:14px">Belum ada makanan dianalisis.</p>';
+        $("tableBody").innerHTML = foods
+          .map(
+            (f) =>
+              `<tr><td>${f.name}</td><td>${f.gram.toFixed(0)} g</td><td>${Math.round(f.cal)}</td><td>${f.protein.toFixed(1)}</td><td>${f.carb.toFixed(1)}</td><td>${f.fat.toFixed(1)}</td></tr>`,
+          )
+          .join("");
+
+        $("analysis").innerHTML = foods.length
+          ? [
+              `Estimasi total kalori makanan ini sekitar ${Math.round(total.cal)} kcal.`,
+              `Protein sekitar ${total.protein.toFixed(1)}g, cukup baik untuk mendukung massa otot.`,
+              `Karbohidrat sekitar ${total.carb.toFixed(1)}g sebagai sumber energi utama.`,
+              `Lemak sekitar ${total.fat.toFixed(1)}g, masih perlu disesuaikan dengan target harian.`,
+            ]
+              .map((x) => `<li>${x}</li>`)
+              .join("")
+          : "<li>Upload foto dan isi detail makanan terlebih dahulu.</li>";
+
+        let mode = "MAINTENANCE",
+          text =
+            "Cocok untuk menjaga berat badan dan mendukung aktivitas harian.";
+        if (total.cal < 450 && total.protein >= 18) {
+          mode = "FAT LOSS";
+          text =
+            "Cukup ringan dan proteinnya lumayan. Cocok untuk defisit kalori.";
+        }
+        if (total.cal > 700) {
+          mode = "BULKING";
+          text =
+            "Kalori cukup tinggi. Cocok untuk menambah massa bila latihan konsisten.";
+        }
+        $("mode").textContent = foods.length ? mode : "-";
+        $("recommendText").textContent = foods.length
+          ? text
+          : "Rekomendasi akan muncul setelah makanan dianalisis.";
+      }
+      render();
+    </script>
+  </body>
+</html>
