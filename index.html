@@ -62,15 +62,11 @@
         background: #111;
       }
       .card {
-        background: linear-gradient(
-          135deg,
-          rgba(119, 44, 255, 0.25),
-          rgba(20, 30, 70, 0.45)
-        );
-        border: 1px solid rgba(160, 130, 255, 0.35);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(18px);
-        border-radius: 24px;
+        background: linear-gradient(180deg, rgba(12,8,30,0.75), rgba(20,15,50,0.6));
+        border: 1px solid rgba(124,58,237,0.18);
+        box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+        backdrop-filter: blur(14px);
+        border-radius: 18px;
       }
       .inputCard {
         padding: 22px;
@@ -174,6 +170,8 @@
       }
       .bigCal {
         padding: 28px;
+        border-radius: 14px;
+        background: linear-gradient(90deg, rgba(124,58,237,0.06), rgba(59,130,246,0.03));
       }
       .bigCal .num {
         font-size: 72px;
@@ -185,6 +183,8 @@
       .macro {
         padding: 22px;
         text-align: center;
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       }
       .macro .icon {
         font-size: 42px;
@@ -213,9 +213,11 @@
       }
       .sectionTitle {
         padding: 14px 24px;
-        background: linear-gradient(90deg, #7c2dff, #30105f);
+        background: linear-gradient(90deg, rgba(124,58,237,0.12), rgba(48,16,95,0.08));
         font-weight: 900;
         letter-spacing: 0.3px;
+        color: #e9d8ff;
+        border-bottom: 1px solid rgba(255,255,255,0.02);
       }
       .foodList {
         padding: 12px 22px;
@@ -238,15 +240,21 @@
       table {
         width: 100%;
         border-collapse: collapse;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border-radius: 12px;
+        overflow: hidden;
       }
       th,
       td {
         padding: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         text-align: center;
       }
       th {
-        color: #f1eaff;
+        color: #eae6ff;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.6px;
       }
       td:first-child,
       th:first-child {
@@ -286,39 +294,27 @@
         padding: 18px 24px;
         color: #e5e7ff;
       }
-      /* Instagram-like preview styles */
-      .instaModal {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(3, 7, 18, 0.6);
-        z-index: 1200;
-        padding: 24px;
+      /* preview feature removed */
+
+      /* enhance main photo with neon ring */
+      .foodPhoto {
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 10px solid transparent;
+        background-origin: border-box;
+        box-shadow:
+          0 8px 40px rgba(66,165,255,0.08),
+          0 0 40px rgba(139,92,246,0.18),
+          0 0 90px rgba(66,165,255,0.06);
+        background-image: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent 20%);
+        position: relative;
       }
-      .instaCard {
-        width: 360px;
-        background: #fff;
-        color: #111;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 30px 80px rgba(2,6,23,0.6);
-        font-family: Inter, Arial, sans-serif;
+      .foodPhoto::before{
+        content:'';
+        position:absolute; inset:-12px; border-radius:50%; z-index:-1; background: linear-gradient(90deg,#7c3aed,#06b6d4); filter: blur(18px);
       }
-      .instaTop { display:flex; align-items:center; justify-content:space-between; padding:12px; }
-      .profile { display:flex; gap:10px; align-items:center }
-      .avatar { width:40px; height:40px; border-radius:50%; background:linear-gradient(90deg,#f97316,#f43f5e); }
-      .meta .user { font-weight:700 }
-      .meta .place { font-size:12px; color:#6b7280 }
-      .instaImageWrap{ background:#eee; display:flex; align-items:center; justify-content:center }
-      .instaImage{ width:100%; height:360px; object-fit:cover; display:block }
-      .instaBody{ padding:12px }
-      .instaStats{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
-      .caption{ color:#111; font-size:14px; margin-bottom:8px }
-      .foodTags{ display:flex; gap:8px; flex-wrap:wrap }
-      .foodTags .tag{ background:#f3f4f6; padding:6px 8px; border-radius:999px; font-size:12px }
-      .hide{ display:none }
       .small {
         color: #9ca3af;
         font-size: 13px;
@@ -386,7 +382,6 @@
             <button class="wide" onclick="analyzeFood()">
               🔍 Analisis Nutrisi
             </button>
-            <button class="wide" onclick="showInsta()">📸 Preview Post</button>
             <button class="wide secondary" onclick="resetData()">Reset</button>
           </div>
           <p class="small">
@@ -396,36 +391,7 @@
         </div>
       </section>
 
-      <!-- Instagram-like preview modal -->
-      <div id="instaModal" class="instaModal hide" onclick="hideInsta(event)">
-        <div class="instaCard" id="instaCard" onclick="event.stopPropagation()">
-          <div class="instaTop">
-            <div class="profile">
-              <div class="avatar"></div>
-              <div class="meta">
-                <div class="user">@food.nutrisi</div>
-                <div class="place">Jakarta, ID</div>
-              </div>
-            </div>
-            <div class="dots">•••</div>
-          </div>
-          <div class="instaImageWrap">
-            <img id="instaImage" class="instaImage" src="" alt="post" />
-          </div>
-          <div class="instaBody">
-            <div class="instaStats">
-              <div><b id="igCal">0 kcal</b></div>
-              <div><span id="igProtein">0g P</span> • <span id="igCarb">0g C</span> • <span id="igFat">0g F</span></div>
-            </div>
-            <div class="caption" id="igCaption">Detail makanan: -</div>
-            <div class="foodTags" id="igFoods"></div>
-          </div>
-          <div style="display:flex;gap:8px;padding:12px;border-top:1px solid #eee">
-            <button style="flex:1;padding:10px;border-radius:8px;border:0;background:#111;color:#fff" onclick="downloadInsta()">Download Image</button>
-            <button style="flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#111" onclick="hideInsta()">Tutup</button>
-          </div>
-        </div>
-      </div>
+      
 
       <section class="photoWrap">
         <img
@@ -745,54 +711,9 @@
           : "Rekomendasi akan muncul setelah makanan dianalisis.";
       }
 
-      // show Instagram-like preview modal
-      function showInsta() {
-        const modal = $('instaModal');
-        const img = $('preview');
-        $('instaImage').src = img.src;
-        const total = foods.reduce(
-          (a, f) => ({
-            gram: a.gram + f.gram,
-            cal: a.cal + f.cal,
-            protein: a.protein + f.protein,
-            carb: a.carb + f.carb,
-            fat: a.fat + f.fat,
-          }),
-          { gram: 0, cal: 0, protein: 0, carb: 0, fat: 0 },
-        );
-        $('igCal').textContent = Math.round(total.cal) + ' kcal';
-        $('igProtein').textContent = Math.round(total.protein) + 'g P';
-        $('igCarb').textContent = Math.round(total.carb) + 'g C';
-        $('igFat').textContent = Math.round(total.fat) + 'g F';
-        $('igCaption').textContent = $('foodDetail').value || 'Detail makanan.';
-        const foodsHtml = foods.map(f => `<div class="tag">${f.name}</div>`).join('');
-        $('igFoods').innerHTML = foodsHtml || '<div class="tag">-</div>';
-        modal.classList.remove('hide');
-      }
-
-      function hideInsta(e) {
-        if (e && e.target && e.target.id !== 'instaModal') return;
-        $('instaModal').classList.add('hide');
-      }
-
-      // download the instaCard using html2canvas
-      function downloadInsta() {
-        const node = document.getElementById('instaCard');
-        if (!node) return;
-        if (window.html2canvas) {
-          html2canvas(node, {scale:2}).then(canvas => {
-            const a = document.createElement('a');
-            a.href = canvas.toDataURL('image/png');
-            a.download = 'post_nutrisi.png';
-            a.click();
-          });
-        } else {
-          alert('html2canvas belum terload. Pastikan koneksi internet aktif.');
-        }
-      }
+      
 
       render();
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5w1XvYk1sIwoMvV7lidh+NROm4tW7x1YgnSUZXoqBYwygJyI072QtdgQXl3k5iADG7n2UlpzyN6NfXU9V7Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </body>
 </html>
