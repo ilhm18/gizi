@@ -333,45 +333,69 @@
         grid-column: 1/-1;
         padding: 18px 24px;
         color: #e5e7ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
+
       .contact {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 16px;
+        padding: 10px 16px;
+        border-radius: 14px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        box-shadow: 0 12px 40px rgba(2, 6, 23, 0.55);
+        max-width: 560px;
       }
+
       .contact .icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        background: linear-gradient(90deg, #ff7a45, #ff4d94);
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: linear-gradient(90deg, #f58529, #dd2a7b, #8134af);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 900;
-        box-shadow: 0 8px 24px rgba(255, 77, 148, 0.12);
+        box-shadow: 0 10px 30px rgba(136, 84, 255, 0.18);
       }
+
       .contact .icon svg {
-        width: 26px;
-        height: 26px;
+        width: 28px;
+        height: 28px;
         display: block;
       }
+
       .contact .meta {
         display: flex;
         flex-direction: column;
         text-align: center;
       }
+
       .contact .title {
-        font-weight: 800;
-        color: #fff;
-        margin-bottom: 4px;
-      }
-      .contact a {
-        color: #0ea5e9;
-        text-decoration: none;
         font-weight: 700;
+        margin-bottom: 0;
       }
+
+      .contact a {
+        font-weight: 700;
+        font-size: 18px;
+        color: transparent;
+        background: linear-gradient(90deg, #34d399, #06b6d4, #7c3aed);
+        -webkit-background-clip: text;
+        background-clip: text;
+        text-decoration: none;
+        transition: transform 160ms ease;
+      }
+
       .contact a:hover {
-        text-decoration: underline;
+        transform: translateY(-3px);
+        text-decoration: none;
       }
 
       .foodPhoto {
